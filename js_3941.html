@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>IFE ECMAScript</title>
+    <style type="text/css">
+    </style>
+</head>
+
+<body>
+    <button id="a">A</button>
+    <button id="b">B</button>
+    <button id="c">C</button>
+
+    <button id="d">D</button>
+    <button id="e">E</button>
+    <button id="f">F</button>
+
+    <div id="contABC"></div>
+    <div id="contDEF"></div>
+
+    <script>
+        function returnStateCode() {
+            //取到需要的值，并返回
+            let hash = location.hash;
+            return hash.substr(1);
+        }
+
+        function render() {
+            //内容 = 解析Hash，获取状态参数()
+            let value = returnStateCode();
+
+            //cont的innerHTML = 内容
+            if (value == 'A' || value == 'B' || value == 'C') {
+                document.getElementById("contABC").innerHTML = value;
+            }else{
+                document.getElementById("contDEF").innerHTML = value;
+            }
+            
+        }
+
+        var allButtons = document.getElementsByTagName("button");
+        for (let i = 0; i < allButtons.length; i++) {
+            const element = allButtons[i];
+            element.onclick = function () {
+                //设置新的hash
+                location.hash = element.innerHTML;
+                render();
+            }
+        }
+
+
+        window.onhashchange = render();
+
+        //进来先执行一次渲染函数()
+        render();
+    </script>
+</body>
+
+</html>
